@@ -1,34 +1,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: avatar-generator-ingress
-  namespace: avatar-generator
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization"
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: brcai-strip-api@kubernetescrd,brcai-redirect-to-https@kubernetescrd
+  name: avatar-pycor-ingress
+  namespace: brcai
 spec:
+  ingressClassName: traefik
+  tls:
+  - secretName: binrc-tls-secret
+    hosts:
+  - api.binrc.com
   rules:
   - host: api.binrc.com
     http:
       paths:
-      - path: /avatar
-        pathType: Prefix
-        backend:
+      - backend:
           service:
-            name: avatar-generator-service
+            name: avatar-pycor-service
             port:
-              number: 80
-  - host: avatar.binrc.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: avatar-generator-service
-            port:
-              number: 80 
+              number: 5000
+        path: /avatar-pycor
+        pathType: Prefix 

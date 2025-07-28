@@ -26,12 +26,12 @@ CORS(app)
 # 初始化头像生成器
 avatar_creator = SimpleAvatarCreator()
 
-@app.route('/')
+@app.route('/avatar')
 def index():
     """首页"""
     return send_file('static/index.html')
 
-@app.route('/avatar')
+@app.route('/avatar/one')
 def create_avatar():
     """生成单个头像 (GET方式)"""
     try:

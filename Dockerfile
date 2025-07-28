@@ -8,6 +8,7 @@ WORKDIR /app
 ENV PYTHONPATH=/app
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
+ENV SERVICE_PATH=/avatar-pycor
 
 # 安装系统依赖（包括cairosvg所需的依赖）
 RUN apt-get update && apt-get install -y \

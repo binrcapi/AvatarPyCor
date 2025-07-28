@@ -5,6 +5,9 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 一个基于Python的头像生成器，支持随机生成个性化头像并导出SVG/PNG格式。
+<p align="center">
+  <img src="docs/demo.png" alt="AvatarPyCor Demo"/>
+</p>
 
 ## 📋 目录
 
@@ -83,7 +86,7 @@ python main.py
 
 | 接口 | 方法 | 描述 |
 |------|------|------|
-| `/avatar` | GET | 生成单个头像 |
+| `/avatar/one` | GET | 生成单个头像 |
 | `/avatar/generate` | POST | 生成单个头像 |
 | `/avatar/json` | GET | 获取头像JSON数据 |
 | `/avatar/batch` | POST | 批量生成头像 |

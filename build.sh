@@ -37,11 +37,15 @@ if [ $? -eq 0 ]; then
         docker run -d \
             --name avatar-generator \
             -p 5000:5000 \
+            -e SERVICE_PATH=/avatar-pycor \
             --restart unless-stopped \
             ${FULL_IMAGE_NAME}
         
         echo "✅ 容器启动成功!"
-        echo "🌐 访问地址: http://localhost:5000"
+        echo "🌐 访问地址:"
+        echo "  - 主页: http://localhost:5000"
+        echo "  - 服务: http://localhost:5000/avatar-pycor"
+        echo "  - 测试: http://localhost:5000/avatar-pycor/test"
         echo "📊 容器状态:"
         docker ps | grep avatar-generator
     fi

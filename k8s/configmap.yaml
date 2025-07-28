@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: avatar-generator-config
-  namespace: avatar-generator
+  name: avatar-pycor-config
+  namespace: brcai
 data:
   FLASK_ENV: "production"
   PYTHONPATH: "/app"
-  FLASK_APP: "app.py" 
+  FLASK_APP: "app.py"
+  SERVICE_PATH: "/avatar-pycor" 

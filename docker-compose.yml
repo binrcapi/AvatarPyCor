@@ -10,6 +10,7 @@ services:
       - FLASK_ENV=production
       - PYTHONPATH=/app
       - FLASK_APP=app.py
+      - SERVICE_PATH=/avatar-pycor
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/test"]

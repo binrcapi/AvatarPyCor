@@ -343,10 +343,6 @@
                 <i class="fas fa-star"></i>
                 Star <span id="starCount">0</span>
             </a>
-            <a href="https://github.com/binrclab/AvatarPyCor#api使用" target="_blank" class="github-btn">
-                <i class="fas fa-book"></i>
-                API文档
-            </a>
         </div>
     </div>
 
@@ -461,6 +457,7 @@
         <div class="footer">
             <p>
                 <a href="https://github.com/binrclab/AvatarPyCor" target="_blank">AvatarPyCor</a>
+
             </p>
         </div>
     </div>
@@ -472,8 +469,6 @@
             const size = document.getElementById('size').value;
             const gender = document.getElementById('gender').value;
 
-            console.log(`生成头像 - 尺寸: ${size}, 性别: ${gender}`);
-
             showLoading();
             hideMessages();
 
@@ -484,10 +479,8 @@
                 if (data.success) {
                     currentAvatarSvg = data.data.svg;
                     updateAllAvatars(data.data.svg);
-                    console.log(`头像生成成功 - 性别: ${data.data.gender}`);
                     showSuccess('头像生成成功！');
                 } else {
-                    console.error('生成失败:', data.error);
                     showError('生成失败: ' + (data.error || '未知错误'));
                 }
             } catch (error) {
@@ -553,7 +546,7 @@
             hideMessages();
 
             try {
-                const response = await fetch('/avatar/save/batch', {
+                const response = await fetch(buildApiUrl('/avatar/save/batch'), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

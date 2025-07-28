@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: avatar-generator
+  name: brcai
   labels:
     name: avatar-generator
     app: avatar-generator 
