@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: avatar-generator-config
+  namespace: avatar-generator
+data:
+  FLASK_ENV: "production"
+  PYTHONPATH: "/app"
+  FLASK_APP: "app.py" 
