@@ -80,7 +80,7 @@ python main.py
 
 ### 在线API服务
 
-我们提供了在线API服务：https://api.binrc.com/avatar/
+我们提供了在线API服务：https://api.binrc.com/avatar
 
 ### API接口列表
 
@@ -488,5 +488,4 @@ chmod +x curl_examples.sh
 ## 📞 联系方式
 
 - 项目地址：https://github.com/binrclab/AvatarPyCor
-- 在线API：https://api.binrc.com/avatar/
-- 在线演示：https://avatar.binrc.com/ 
+- 在线API：https://api.binrc.com/avatar
