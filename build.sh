@@ -13,9 +13,10 @@ if ! command -v docker &> /dev/null; then
 fi
 
 # 设置变量
-IMAGE_NAME="avatar-generator"
+REGISTRY="registry.cn-shanghai.aliyuncs.com/binrchq"
+IMAGE_NAME="avatar-pycor"
 TAG="latest"
-FULL_IMAGE_NAME="${IMAGE_NAME}:${TAG}"
+FULL_IMAGE_NAME="${REGISTRY}/${IMAGE_NAME}:${TAG}"
 
 echo "📦 构建 Docker 镜像: ${FULL_IMAGE_NAME}"
 
@@ -35,7 +36,7 @@ if [ $? -eq 0 ]; then
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         echo "🐳 启动容器..."
         docker run -d \
-            --name avatar-generator \
+            --name avatar-pycor \
             -p 5000:5000 \
             -e SERVICE_PATH=/avatar-pycor \
             --restart unless-stopped \
@@ -47,7 +48,7 @@ if [ $? -eq 0 ]; then
         echo "  - 服务: http://localhost:5000/avatar-pycor"
         echo "  - 测试: http://localhost:5000/avatar-pycor/test"
         echo "📊 容器状态:"
-        docker ps | grep avatar-generator
+        docker ps | grep avatar-pycor
     fi
 else
     echo "❌ 镜像构建失败!"

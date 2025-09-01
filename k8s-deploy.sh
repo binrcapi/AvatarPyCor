@@ -28,7 +28,7 @@ else
 fi
 
 echo "⏳ 等待部署完成..."
-kubectl wait --for=condition=available --timeout=300s deployment/avatar-generator -n avatar-generator
+kubectl wait --for=condition=available --timeout=300s deployment/avatar-pycor -n avatar-pycor
 
 echo "✅ 部署完成！"
 echo ""

@@ -14,12 +14,12 @@ fi
 
 # 构建Docker镜像
 echo "📦 构建 Docker 镜像..."
-docker build -t binrclab/avatar-generator:latest .
+docker build -t registry.cn-shanghai.aliyuncs.com/binrchq/avatar-pycor:latest .
 
 # 推送镜像到Docker Hub（可选）
 if [ "$1" = "--push" ]; then
     echo "📤 推送镜像到 Docker Hub..."
-    docker push binrclab/avatar-generator:latest
+    docker push registry.cn-shanghai.aliyuncs.com/binrchq/avatar-pycor:latest
 fi
 
 # 使用Docker Compose启动服务

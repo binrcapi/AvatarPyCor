@@ -14,12 +14,15 @@
 - [项目简介](#项目简介)
 - [主要特性](#主要特性)
 - [快速开始](#快速开始)
+- [🐳 Docker 运行](#-docker-运行)
 - [API使用](#api使用)
 - [编程语言示例](#编程语言示例)
 - [项目结构](#项目结构)
 - [部署指南](#部署指南)
 - [开发说明](#开发说明)
 - [使用示例](#使用示例)
+- [🔧 故障排除](#-故障排除)
+- [📋 更新日志](#-更新日志)
 - [致谢](#致谢)
 - [许可证](#许可证)
 
@@ -50,7 +53,7 @@ AvatarPyCor 是一个用Python实现的头像生成器，支持随机生成各�
 
 ```bash
 # 克隆项目
-git clone https://github.com/binrclab/AvatarPyCor.git
+git clone https://github.com/binrcapi/AvatarPyCor.git
 cd AvatarPyCor
 
 # 安装简化版本依赖（推荐）
@@ -75,6 +78,65 @@ python main.py
 ### 访问应用
 
 启动后访问：http://localhost:5000
+
+## 🐳 Docker 运行
+
+### 使用预构建镜像
+
+```bash
+# 拉取镜像
+docker pull registry.cn-hongkong.aliyuncs.com/binrchq/avatar-pycor:latest
+
+# 运行容器
+docker run -d -p 5000:5000 --name avatar-pycor registry.cn-hongkong.aliyuncs.com/binrchq/avatar-pycor:latest
+
+# 访问应用
+curl http://localhost:5000/test
+```
+
+### 本地构建镜像
+
+```bash
+# 构建镜像
+docker build -t avatar-pycor .
+
+# 运行容器
+docker run -d -p 5000:5000 --name avatar-pycor avatar-pycor
+
+# 查看日志
+docker logs avatar-pycor
+
+# 停止容器
+docker stop avatar-pycor
+```
+
+### Docker Compose 部署
+
+```bash
+# 启动服务
+docker-compose up -d
+
+# 查看服务状态
+docker-compose ps
+
+# 查看日志
+docker-compose logs -f
+
+# 停止服务
+docker-compose down
+```
+
+### 生产环境部署
+
+```bash
+# 使用部署脚本
+./deploy.sh
+
+# 或手动部署
+docker build -t avatar-pycor .
+docker tag avatar-pycor registry.cn-hongkong.aliyuncs.com/binrchq/avatar-pycor:latest
+docker push registry.cn-hongkong.aliyuncs.com/binrchq/avatar-pycor:latest
+``` 
 
 ## 🌐 API使用
 
@@ -485,7 +547,94 @@ chmod +x curl_examples.sh
 
 欢迎提交 Issue 和 Pull Request！
 
+## 🔧 故障排除
+
+### 常见问题
+
+#### 1. Docker构建失败
+
+**问题**：`libgdk-pixbuf2.0-dev` 包安装失败
+**解决方案**：已修复Dockerfile中的包名问题，使用 `libgdk-pixbuf-xlib-2.0-dev`
+
+#### 2. 端口被占用
+
+**问题**：5000端口已被占用
+**解决方案**：
+```bash
+# 查看端口占用
+lsof -i :5000
+
+# 使用其他端口
+docker run -p 8080:5000 avatar-pycor
+```
+
+#### 3. 内存不足
+
+**问题**：生成PNG格式时内存不足
+**解决方案**：
+```bash
+# 增加Docker内存限制
+docker run -m 1g -p 5000:5000 avatar-pycor
+```
+
+#### 4. 健康检查失败
+
+**问题**：容器健康检查失败
+**解决方案**：
+```bash
+# 查看容器日志
+docker logs avatar-pycor
+
+# 手动测试接口
+curl http://localhost:5000/test
+```
+
+### 性能优化
+
+#### 1. 生产环境配置
+
+```bash
+# 使用多进程模式
+docker run -p 5000:5000 -e WORKERS=4 avatar-pycor
+
+# 设置资源限制
+docker run --cpus=1 --memory=512m -p 5000:5000 avatar-pycor
+```
+
+#### 2. 缓存优化
+
+```bash
+# 使用Redis缓存（可选）
+docker run -p 5000:5000 -e REDIS_URL=redis://redis:6379 avatar-pycor
+```
+
+## 📋 更新日志
+
+### v1.0.0 (2024-01-XX)
+
+#### 🎉 新功能
+- ✨ 支持随机头像生成
+- 🎨 多种图层组合和颜色搭配
+- 👥 性别区分（男性、女性、中性）
+- 📱 多尺寸支持（100x100到400x400）
+- 🌐 RESTful API接口
+- 🖥️ Web操作界面
+- 📦 多格式导出（SVG/PNG）
+
+#### 🔧 技术特性
+- 🐳 Docker容器化支持
+- ☸️ Kubernetes部署配置
+- 🚀 生产环境优化
+- 📊 健康检查机制
+- 🔒 非root用户运行
+
+#### 🐛 修复
+- 修复Docker构建时的包依赖问题
+- 优化内存使用和性能
+- 改进错误处理机制
+
 ## 📞 联系方式
 
-- 项目地址：https://github.com/binrclab/AvatarPyCor
+- 项目地址：https://github.com/binrcapi/AvatarPyCor
 - 在线API：https://api.binrc.com/avatar
+- 问题反馈：https://github.com/binrcapi/AvatarPyCor/issues
